@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Product Management</title>
+	<style>
+		section{
+			display: none;
+		}
+		#sec-menu{
+			display : block;
+		}
+		label{
+			display: block;
+		}
+		.field{
+			margin-bottom: 10px;
+		}
+		ol{
+			list-style: none;
+			-webkit-padding-start: 0px;
+		}
+		#menuList li{
+			display: inline;
+		}
+		#olProductList li{
+			border : 1px solid gray;
+			background-color: #e7e7e7;
+			padding: 5px;
+			border-radius: 5px;
+			font-size: 26pt;
+			margin-bottom: 10px;
+		}
+		#olProductList{
+			width: 400px;
+		}
+	</style>
+	<script>
+		window.addEventListener("DOMContentLoaded", init);
+		var secList, secEdit, secDetails, btnAdd, spanCount, olProductList;
+		var txtName, txtCost, txtUnits, txtDescription;
+
+		var products = [];
+
+		function init(){
+			var linkNewProduct = document.querySelector("#linkNewProduct");
+			var linkProductList = document.querySelector("#linkProductList");
+
+			linkNewProduct.addEventListener('click', onLinkNewProductClick);
+			linkProductList.addEventListener('click', onLinkProductListClick);
+
+			secList = document.querySelector('#sec-list');
+			secEdit = document.querySelector('#sec-edit');
+			secDetails = document.querySelector('#sec-details');
+			btnAdd = document.querySelector("#btnAdd");
+			btnAdd.addEventListener("click", onBtnAddClick);
+
+			txtCost = document.querySelector('#txtCost');
+			txtName = document.querySelector('#txtName');
+			txtUnits = document.querySelector('#txtUnits');
+			txtDescription = document.querySelector('#txtDescription');
+
+			spanCount = document.querySelector('#spanCount');
+			olProductList = document.querySelector('#olProductList');
+
+			updateProductCount();
+		}
+		function onBtnAddClick(){
+			var newProduct = {
+				name : txtName.value,
+				cost : parseInt(txtCost.value, 10),
+				units : parseInt(txtUnits.value, 10),
+				description : txtDescription.value
+			};
+			products.push(newProduct);
+
+			txtName.value = '';
+			txtDescription.value = '';
+			txtCost.value = '';
+			txtUnits.value = '';
+
+			/*var allTextInputs = document.querySelectorAll('input[type="text"],textarea');
+			for(var i=0; i < allTextInputs.length; i++)
+				allTextInputs[i].value = '';*/
+
+			updateProductCount();
+			addProductToList(newProduct);
+		}
+		function addProductToList(product){
+			var newProductItem = document.createElement('li');
+
+			var spanProductName = document.createElement('span');
+			spanProductName.innerHTML = product.name;
+			newProductItem.appendChild(spanProductName);
+
+			var btnDetails = document.createElement('button');
+			btnDetails.innerHTML = 'Details';
+			btnDetails.setAttribute('product-name', product.name);
+			btnDetails.addEventListener('click', onBtnDetailsClick);
+			newProductItem.appendChild(btnDetails);
+
+
+			olProductList.appendChild(newProductItem);
+		}
+		function onBtnDetailsClick(evt){
+			var productName = evt.target.getAttribute('product-name');
+			var currentProduct = null;
+			for(var i=0; i < products.length; i++){
+				if (productName == products[i].name){
+					currentProduct = products[i];
+					break;
+				}
+			}
+			if (currentProduct){
+				document.querySelector("#productName").innerHTML = currentProduct.name;
+				document.querySelector("#productCost").innerHTML = currentProduct.cost;
+				document.querySelector("#productDesc").innerHTML = currentProduct.description;
+				secEdit.style.display = 'none';
+				secList.style.display = 'none';
+				secDetails.style.display = 'block';
+			}	
+		}
+		function updateProductCount(){
+			spanCount.innerHTML = products.length;
+		}
+		function onLinkNewProductClick(){
+			secEdit.style.display = 'block';
+			secList.style.display = 'none';
+			secDetails.style.display = 'none';
+		}
+		function onLinkProductListClick(){
+			secEdit.style.display = 'none';
+			secList.style.display = 'block';
+			secDetails.style.display = 'none';
+		}
+
+	</script>
+</head>
+<body>
+	<h1>Product Manager</h1>
+	<hr>
+	<section id="sec-menu">
+		<ol id="menuList">
+			<li><a href="#" id="linkNewProduct">New Product</a></li>
+			<li><a href="#" id="linkProductList">Product List</a> - <span id="spanCount">[Product Count]</span></li>
+		</ol>
+	</section>
+	<section id="sec-edit">
+		<h3>New Product</h3>
+		<div class="field">
+			<label for="">Name :</label>
+			<input type="text" name="" id="txtName">
+		</div>
+		<div class="field">
+			<label for="">Cost :</label>
+			<input type="text" name="" id="txtCost">
+		</div>
+		<div class="field">
+			<label for="">Units :</label>
+			<input type="text" name="" id="txtUnits">
+		</div>
+		<div class="field">
+			<label for="">Description :</label>
+			<textarea name="" id="txtDescription" cols="30" rows="10">
+				
+			</textarea>
+		</div>
+		<div class="field">
+			<input type="button" value="Add New" id="btnAdd">
+		</div>
+	</section>
+	<section id="sec-list">
+		<h3>Products</h3>
+		<ol id="olProductList">
+			
+		</ol>
+	</section>
+	<section id="sec-details">
+		<h3 id="productName"></h3>
+		<div id="productCost"></div>
+		<div id="productDesc"></div>
+	</section>
+</body>
+</html>
