@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Product List</title>
+	<script>
+		window.addEventListener("DOMContentLoaded", init);
+		var txtProductName, btnAdd, olProductList;
+
+		function init(){
+			txtProductName = document.getElementById("txtProductName");
+			btnAdd= document.getElementById("btnAdd");
+			olProductList = document.getElementById("olProductList");
+
+			btnAdd.addEventListener("click", onBtnAddClick);
+
+			var productItems = document.getElementsByTagName('li');
+			for(var i=0; i < productItems.length; i++){
+				productItems[i].addEventListener('click', displayProductName);
+			}
+
+		}
+
+		function displayProductName(){
+			console.log(this.innerHTML);
+		}
+		function  onBtnAddClick(){
+			var productName = txtProductName.value;
+			var newProductItem = '<li>' + productName + '</li>';
+			olProductList.innerHTML += newProductItem;
+		}
+	</script>
+</head>
+<body>
+	<input type="text" name="" id="txtProductName">
+	<input type="button" value="Add" id="btnAdd">
+	<ol id="olProductList">
+		<li>Product - 1</li>
+		<li>Product - 2</li>
+	</ol>
+</body>
+</html>
