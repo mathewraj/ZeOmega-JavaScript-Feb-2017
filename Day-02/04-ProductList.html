@@ -20,14 +20,23 @@
 			}
 
 		}
-
+		
 		function displayProductName(){
 			console.log(this.innerHTML);
 		}
 		function  onBtnAddClick(){
 			var productName = txtProductName.value;
-			var newProductItem = '<li>' + productName + '</li>';
-			olProductList.innerHTML += newProductItem;
+			var newProductItem = document.createElement("li");
+			newProductItem.innerHTML = productName;
+			newProductItem.addEventListener('click', displayProductName);
+			var btn = document.createElement('button');
+			btn.innerHTML ='Something';
+			btn.addEventListener('click', function(){
+				console.log('something button is clicked');
+			})
+			newProductItem.appendChild(btn);
+			olProductList.appendChild(newProductItem);
+			
 		}
 	</script>
 </head>
@@ -40,3 +49,11 @@
 	</ol>
 </body>
 </html>
+
+
+
+
+
+
+
+
