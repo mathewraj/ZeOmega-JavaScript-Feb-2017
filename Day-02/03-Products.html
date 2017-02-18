@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Products</title>
+	<script>
+		window.addEventListener("DOMContentLoaded", init);
+		var txtName, txtCost, txtUnits, btnAdd, productsTable;
+		var products = [];
+
+		function init(){
+			txtName = document.getElementById("txtName");
+			txtCost = document.getElementById("txtCost");
+			txtUnits = document.getElementById("txtUnits");
+			btnAdd = document.getElementById("btnAdd");
+			productsTable = document.getElementById("productsTable");
+
+			btnAdd.addEventListener("click", onBtnAddClick);
+		}
+		function onBtnAddClick(){
+			var name = txtName.value,
+				cost = parseInt(txtCost.value),
+				units = parseInt(txtUnits.value),
+				productValue = cost * units;
+
+			var newProduct = {
+				name : name,
+				cost : cost,
+				units : units,
+				productValue : productValue
+			};
+			products.push(newProduct);
+			recreateTable();
+		}
+
+		function recreateTable(){
+			var result = '';
+			var totalValue = 0;
+			for(var i = 0; i < products.length; i++){
+				var product = products[i];
+				var row = '<tr><td>' + product.name + '</td><td>' + product.cost + '</td><td>' + product.units + '</td><td>' + product.productValue + '</td></tr>';
+				result += row;
+				totalValue += product.productValue;
+			}
+			result += '<tr><td colspan="3"></td><td>' + totalValue + '</td></tr>';
+			productsTable.innerHTML = result;
+		}
+	</script>
+</head>
+<body>
+	<label for="">Name :</label>
+	<input type="text" name="" id="txtName">
+	<label for="">Cost :</label>
+	<input type="text" name="" id="txtCost">
+	<label for="">Units :</label>
+	<input type="text" name="" id="txtUnits">
+	<input type="button" value="Add" id="btnAdd">
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Cost</th>
+					<th>Units</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			
+			<tbody id="productsTable">
+				
+			</tbody>
+			
+		</table>
+	</div>
+</body>
+</html>

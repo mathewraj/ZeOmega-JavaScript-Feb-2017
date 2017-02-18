@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM Basics</title>
+	<style>
+		.highlight{
+			border: 2px solid gray;
+			background-color: #e7e7e7;
+			border-radius: 5px;
+			padding: 5px;
+			font-size: 22pt;
+			font-weight: bold;
+			color : red;
+		}
+	</style>
+	<script>
+		/*function greet(){
+		   var root = document.documentElement,
+		       body = root.children[1],
+		       txtName = body.children[3],
+		       divMessage = body.children[5],
+		       name = txtName.value,
+		       message = 'Hi ' + name + ', Welcome to the world of JavaScript';
+		   divMessage.innerHTML = message;
+		}
+		var root = document.documentElement,
+       		body = root.children[1];
+
+       	var btnGreet = body.children[4];
+       	btnGreet.addEventListener("click", greet)*/
+
+       	function greet(){
+       		var txtName = document.getElementById("txtName"),
+       			divMessage = document.getElementById("divMessage"),
+       			message = 'Hi ' + txtName.value + ', Welcome to the world of JavaScript!';
+       		divMessage.innerHTML = message;
+       	}
+       	function init(){
+       		document.getElementById("btnGreet").addEventListener("click", greet);
+       	}
+       	window.addEventListener("DOMContentLoaded", init);
+	</script>
+</head>
+<body>
+	<h1>Greeter</h1>
+	<hr>
+	<label>Name :</label>
+	<input type="text" id="txtName">
+	<input type="button" value="Greet" id="btnGreet">
+	<div id="divMessage">[Dummy Message]</div>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+

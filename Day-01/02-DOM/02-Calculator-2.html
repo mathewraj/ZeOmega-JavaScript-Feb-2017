@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Calculator</title>
+	<style>
+		#divResult{
+			font-size: 22pt;
+			font-weight: bold;
+		}
+	</style>
+	<script>
+		var calculator = {
+			add : function(x,y){
+				return x + y;
+			},
+			subtract : function(x,y){
+				return x - y;
+			},
+			multiply : function(x,y){
+				return x * y;
+			},
+			divide : function(x,y){
+				return x / y;
+			}
+		}
+		var txtNumber1, txtNumber2, selectOperator, btnCalculate, divResult, divError;
+
+		window.addEventListener("DOMContentLoaded", init);
+		function validate(){
+			
+			if (txtNumber1.value === ''){
+				return 'Number 1 cannot be empty';
+			}
+			if (isNaN(txtNumber1.value)){
+				return 'Invalid data in Number 1';
+			}
+			if (txtNumber2.value === ''){
+				return 'Number 2 cannot be empty';
+			}
+			if (isNaN(txtNumber2.value)){
+				return 'Invalid data in Number 2';
+			}
+			return '';
+		}
+		function init(){
+			btnCalculate = document.getElementById("btnCalculate");
+			btnCalculate.addEventListener("click", calculate);
+
+			selectOperator = document.getElementById("selectOperator");
+			selectOperator.addEventListener("change", calculate);
+
+			txtNumber1 = document.getElementById("txtNumber1");
+			txtNumber1.addEventListener('keyup', calculate);
+
+			txtNumber2 = document.getElementById("txtNumber2");
+			txtNumber2.addEventListener('keyup', calculate);
+
+			divResult = document.getElementById("divResult");
+			divError = document.getElementById('divError');
+		}
+		function calculate(){
+			
+			var errorMessage = validate();
+			if (errorMessage === ''){
+				var n1 = parseInt(txtNumber1.value),
+					n2 = parseInt(txtNumber2.value),
+					operation = selectOperator.value,
+					result = calculator[operation](n1, n2);
+
+				
+				divResult.innerHTML = result;
+				divError.innerHTML = '';
+			} else {
+				divError.innerHTML = errorMessage;
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>Calculator</h1>
+	<hr>
+	<input type="text" name="" id="txtNumber1">
+	<select name="" id="selectOperator">
+		<option value="add">Add</option>
+		<option value="subtract">Subtract</option>
+		<option value="multiply">Multiply</option>
+		<option value="divide">Divide</option>
+	</select>
+	<input type="text" name="" id="txtNumber2">
+	<input type="button" value="Calculate" id="btnCalculate">
+	<div id="divResult">[Result]</div>
+	<div id="divError"></div>
+</body>
+</html>

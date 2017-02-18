@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Calculator</title>
+	<style>
+		#divResult{
+			font-size: 22pt;
+			font-weight: bold;
+		}
+	</style>
+	<script>
+		window.addEventListener("DOMContentLoaded", init);
+		function init(){
+			var btnCalculate = document.getElementById("btnCalculate");
+			btnCalculate.addEventListener("click", calculate);
+
+			var selectOperator = document.getElementById("selectOperator");
+			selectOperator.addEventListener("change", calculate)
+		}
+		function calculate(){
+			var txtNumber1 = document.getElementById("txtNumber1"),
+				txtNumber2 = document.getElementById("txtNumber2"),
+				operation = document.getElementById("selectOperator").value,
+				divResult = document.getElementById("divResult");
+
+			var n1 = parseInt(txtNumber1.value),
+				n2 = parseInt(txtNumber2.value),
+				result = 0;
+
+			switch(operation){
+				case 'add' :
+					result = n1 + n2;
+					break;
+				case 'subtract' :
+					result = n1 - n2;
+					break;
+				case 'multiply' :
+					result = n1 * n2;
+					break;
+				case 'divide' :
+					result = n1 / n2;
+					break;
+			}
+			divResult.innerHTML = result;
+		}
+	</script>
+</head>
+<body>
+	<h1>Calculator</h1>
+	<hr>
+	<input type="text" name="" id="txtNumber1">
+	<select name="" id="selectOperator">
+		<option value="add">Add</option>
+		<option value="subtract">Subtract</option>
+		<option value="multiply">Multiply</option>
+		<option value="divide">Divide</option>
+	</select>
+	<input type="text" name="" id="txtNumber2">
+	<input type="button" value="Calculate" id="btnCalculate">
+	<div id="divResult">[Result]</div>
+	<div id="divError"></div>
+</body>
+</html>
